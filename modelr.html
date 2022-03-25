@@ -108,7 +108,7 @@ data("wage1")
 ---
 ### Exploração dos dados
 
-Os dados são do tipo *cross-section* e contém variáveis de 526 indivíduos referente ao ano de 1976. Deste conjunto de dados, usaremos apenas as variáveis `wage` (salário por hora), `educ` (anos de educação) e `exper` (anos de experiência). Para facilitar o entendimento, utilizaremos a transformação logaritmica na variável dependente, obtendo uma interpretação percentual dos parâmetros do modelo.
+Os dados são do tipo *cross-section* e contém variáveis de 526 indivíduos referente ao ano de 1976. Deste conjunto de dados, usaremos apenas as variáveis `wage` (salário por hora), `educ` (anos de educação) e `exper` (anos de experiência). Para facilitar o entendimento, utilizaremos a transformação logarítmica na variável dependente, obtendo uma interpretação percentual dos parâmetros do modelo.
 
 
 ```r
@@ -215,7 +215,7 @@ p1 + p2
 ---
 ### Estimar o modelo
 
-Conforme dito, iremos estimar o modelo econométrico acima mas com algumas modificações: sem o fator `treinamento` e com transformação logaritmica na variável `salario`. Com estes ajustes, comuns em exercícios empíricos, chegamos a uma especificação como esta:
+Conforme dito, iremos estimar o modelo econométrico acima mas com algumas modificações: sem o fator `treinamento` e com transformação logarítmica na variável `salario`. Com estes ajustes, comuns em exercícios empíricos, chegamos a uma especificação como esta:
 
 `$$\operatorname{log(salario)} = \beta_{0} + \beta_{1}(\operatorname{escolaridade}) + \beta_{2}(\operatorname{experiencia}) + \epsilon$$`
 

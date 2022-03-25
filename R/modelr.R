@@ -45,7 +45,7 @@ p1 + p2
 # Modelo de regressão linear ----------------------------------------------
 
 # Estimar modelo
-fit_modelo <- lm(lwage ~ educ + exper, data = wage1)
+fit_modelo <- lm(log(wage) ~ educ + exper, data = wage1)
 
 # Obter resultados
 summary(fit_modelo)

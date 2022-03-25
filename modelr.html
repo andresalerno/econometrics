@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Criando modelos no R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando da Silva Data Scientist       " />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#282f6b"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":true,"autoSearch":true}) })</script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copiar","success":"Copiado!","error":"Pressione Ctrl+C para copiar"})</script>
+    <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Criando modelos no R
+### Fernando da Silva<br><span style="font-size: 70%;">Data Scientist<br><a href="https://github.com/schoulten"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>  <a href="https://www.linkedin.com/in/schoulten/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>  <a href="mailto:fernando@fortietwo.com"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg></a>  <a href="https://analisemacro.com.br/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg></a></span>
+### <span style="font-size: 70%;">25 de março de 2022</span>
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+pre {
+  white-space: pre-wrap;
+  overflow-y: scroll !important;
+  max-height: 45vh !important;
+  overflow-x: auto;
+  max-width: 100%;
+}
+&lt;/style&gt;
+
+
+
+### Introdução
+
+Neste post mostraremos **como construir modelos de regressão linear de maneira aplicada**. Se você já se perguntou em como replicar no R aqueles modelos introdutórios, comuns em disciplinas de estatística e econometria, este post é pra você!
+
+Dessa forma, **usaremos a econometria** - que é um conjunto de métodos estatísticos utilizados para estimar relações econômicas, testar teorias e avaliar políticas públicas ou de negócios - **para explorar um problema aplicado ao mercado de trabalho**.
+
+Portanto, assumimos que você já possui algum conhecimento teórico sobre modelos de regressão linear, pois daremos ênfase no aspecto prático de como implementar este tipo de modelo usando o R. Caso necessário, sugerimos como referência para revisão teórica o livro-texto do Wooldridge (2020), que é muito utilizado em disciplinas de econometria de cursos de graduação e será nossa base aqui.
+
+
+---
+### Pacotes
+
+Para reproduzir os códigos deste exercício, você precisará dos seguintes pacotes de R:
+
+
+```r
+library(wooldridge)  # CRAN v1.4-2
+library(performance) # CRAN v0.8.0
+library(broom)       # CRAN v0.7.12
+library(see)         # CRAN v0.6.9
+library(report)      # CRAN v0.5.1
+library(parameters)  # CRAN v0.17.0
+library(tibble)      # CRAN v3.1.6
+library(ggplot2)     # CRAN v3.3.5
+library(patchwork)   # CRAN v1.1.1
+library(magrittr)    # CRAN v2.0.2
+```
+
+
+---
+### O problema e os dados
+
+Para exemplificar a estimação de um modelo linear vamos recorrer a um conjunto de dados clássico do Wooldridge, que traz informações de uma pesquisa populacional. Mais especificamente, iremos investigar um problema de economia do mercado de trabalho: suponha que você seja contratado para determinar o efeito de um programa de aperfeiçoamento profissional na produtividade de trabalhadores. Sem se aprofundar muito na teoria econômica e especializada da área, podemos dizer que fatores como escolaridade, experiência profissional e treinamentos podem afetar a produtividade do trabalhador e, portanto, seus salários. Com esse simples entendimento podemos definir um modelo econômico como:
+
+`$$salario = f(escolaridade, experiencia, treinamento)$$`
+onde `salario` é o salário por hora, `escolaridade` são os anos de educação formal, `experiencia` são os anos de experiência no mercado de trabalho e `treinamento` é o tempo despendido em aperfeiçoamento profissional. Outros fatores podem afetar `salario`, mas este modelo simples capta a essência do problema em questão.
+
+
+---
+### O problema e os dados
+
+Dado que estes fatores e variáveis podem ser observados - e se não fossem teríamos que levar isso em consideração -, o próximo passo é transformarmos esta especificação de modelo econômico para um modelo econométrico, como:
+
+`$$\operatorname{salario} = \beta_{0} + \beta_{1}(\operatorname{escolaridade}) + \beta_{2}(\operatorname{experiencia}) + \beta_{3}(\operatorname{treinamento}) + \epsilon$$`
+
+onde as constantes `\(\beta_{0}\)`, `\(\beta_{1}\)`, ..., `\(\beta_{3}\)` são parâmetros do modelo que descrevem as direções (sinal) e as magnitudes (tamanho) da relação entre `salario` e as demais variáveis utilizadas para explicar `salario` no modelo; e o termo de erro `\(\epsilon\)` contém fatores como "habilidade inata", qualidade da educação, histórico familiar e outros que podem influenciar o salário de um trabalhador. Se estivermos especialmente interessados no efeito do programa de aperfeiçoamento profissional, então `\(\beta_{3}\)` é o parâmetro de interesse.
+
+Para uma análise empirica deste modelo precisamos de dados, portanto, após essa breve introdução vamos partir para a prática! No R, o conjunto de dados para usarmos nesse modelo vem do pacote `{wooldridge}` e pode ser carregado conforme abaixo:
+
+
+```r
+# Carregar dataset
+data("wage1")
+```
+
+
+---
+### Exploração dos dados
+
+Os dados são do tipo *cross-section* e contém variáveis de 526 indivíduos referente ao ano de 1976. Deste conjunto de dados, usaremos apenas as variáveis `wage` (salário por hora), `educ` (anos de educação) e `exper` (anos de experiência). Para facilitar o entendimento, utilizaremos a transformação logaritmica na variável dependente, obtendo uma interpretação percentual dos parâmetros do modelo.
+
+
+```r
+# Inspecionar dataset
+tibble::as_tibble(wage1)
+```
+
+```
+# # A tibble: 526 x 24
+#     wage  educ exper tenure nonwhite female married numdep  smsa northcen south
+#    &lt;dbl&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;    &lt;int&gt;  &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;
+#  1  3.10    11     2      0        0      1       0      2     1        0     0
+#  2  3.24    12    22      2        0      1       1      3     1        0     0
+#  3  3       11     2      0        0      0       0      2     0        0     0
+#  4  6        8    44     28        0      0       1      0     1        0     0
+#  5  5.30    12     7      2        0      0       1      1     0        0     0
+#  6  8.75    16     9      8        0      0       1      0     1        0     0
+#  7 11.2     18    15      7        0      0       0      0     1        0     0
+#  8  5       12     5      3        0      1       0      0     1        0     0
+#  9  3.60    12    26      4        0      1       0      2     1        0     0
+# 10 18.2     17    22     21        0      0       1      0     1        0     0
+# # ... with 516 more rows, and 13 more variables: west &lt;int&gt;, construc &lt;int&gt;,
+# #   ndurman &lt;int&gt;, trcommpu &lt;int&gt;, trade &lt;int&gt;, services &lt;int&gt;, profserv &lt;int&gt;,
+# #   profocc &lt;int&gt;, clerocc &lt;int&gt;, servocc &lt;int&gt;, lwage &lt;dbl&gt;, expersq &lt;int&gt;,
+# #   tenursq &lt;int&gt;
+```
+
+
+---
+### Exploração dos dados
+
+No R, com um simples comando também é possível obter uma tabela de estatísticas descritivas das variáveis:
+
+
+```r
+# Estatísticas descritivas
+parameters::describe_distribution(wage1)
+```
+
+```
+# Variable |   Mean |     SD |    IQR |           Range | Skewness | Kurtosis |   n | n_Missing
+# ---------------------------------------------------------------------------------------------
+# wage     |   5.90 |   3.69 |   3.59 |   [0.53, 24.98] |     2.01 |     5.03 | 526 |         0
+# educ     |  12.56 |   2.77 |   2.00 |   [0.00, 18.00] |    -0.62 |     1.91 | 526 |         0
+# exper    |  17.02 |  13.57 |  21.00 |   [1.00, 51.00] |     0.71 |    -0.64 | 526 |         0
+# tenure   |   5.10 |   7.22 |   7.00 |   [0.00, 44.00] |     2.12 |     4.71 | 526 |         0
+# nonwhite |   0.10 |   0.30 |   0.00 |    [0.00, 1.00] |     2.63 |     4.91 | 526 |         0
+# female   |   0.48 |   0.50 |   1.00 |    [0.00, 1.00] |     0.08 |    -2.00 | 526 |         0
+# married  |   0.61 |   0.49 |   1.00 |    [0.00, 1.00] |    -0.45 |    -1.81 | 526 |         0
+# numdep   |   1.04 |   1.26 |   2.00 |    [0.00, 6.00] |     1.17 |     0.92 | 526 |         0
+# smsa     |   0.72 |   0.45 |   1.00 |    [0.00, 1.00] |    -1.00 |    -1.01 | 526 |         0
+# northcen |   0.25 |   0.43 |   1.00 |    [0.00, 1.00] |     1.15 |    -0.68 | 526 |         0
+# south    |   0.36 |   0.48 |   1.00 |    [0.00, 1.00] |     0.61 |    -1.64 | 526 |         0
+# west     |   0.17 |   0.38 |   0.00 |    [0.00, 1.00] |     1.77 |     1.14 | 526 |         0
+# construc |   0.05 |   0.21 |   0.00 |    [0.00, 1.00] |     4.37 |    17.14 | 526 |         0
+# ndurman  |   0.11 |   0.32 |   0.00 |    [0.00, 1.00] |     2.43 |     3.94 | 526 |         0
+# trcommpu |   0.04 |   0.20 |   0.00 |    [0.00, 1.00] |     4.48 |    18.10 | 526 |         0
+# trade    |   0.29 |   0.45 |   1.00 |    [0.00, 1.00] |     0.94 |    -1.11 | 526 |         0
+# services |   0.10 |   0.30 |   0.00 |    [0.00, 1.00] |     2.66 |     5.10 | 526 |         0
+# profserv |   0.26 |   0.44 |   1.00 |    [0.00, 1.00] |     1.11 |    -0.78 | 526 |         0
+# profocc  |   0.37 |   0.48 |   1.00 |    [0.00, 1.00] |     0.55 |    -1.70 | 526 |         0
+# clerocc  |   0.17 |   0.37 |   0.00 |    [0.00, 1.00] |     1.79 |     1.20 | 526 |         0
+# servocc  |   0.14 |   0.35 |   0.00 |    [0.00, 1.00] |     2.07 |     2.31 | 526 |         0
+# lwage    |   1.62 |   0.53 |   0.73 |   [-0.63, 3.22] |     0.39 |     0.40 | 526 |         0
+# expersq  | 473.44 | 616.04 | 651.00 | [1.00, 2601.00] |     1.50 |     1.32 | 526 |         0
+# tenursq  |  78.15 | 199.43 |  49.00 | [0.00, 1936.00] |     4.38 |    25.16 | 526 |         0
+```
+
+
+---
+### Exploração dos dados
+
+Com o pacote `ggplot2` podemos facilmente visualizar, em um gráfico de dispersão, a relação entre as variáveis do modelo:
+
+.pull-left[
+
+
+```r
+# Visualização dos dados
+p1 &lt;- wage1 %&gt;%
+  ggplot2::ggplot() +
+  ggplot2::aes(y = wage, x = educ) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm")
+
+p2 &lt;- wage1 %&gt;%
+  ggplot2::ggplot() +
+  ggplot2::aes(y = wage, x = exper) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm")
+
+p1 + p2
+```
+
+]
+
+.pull-right[
+
+&lt;img src="modelr_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+### Estimar o modelo
+
+Conforme dito, iremos estimar o modelo econométrico acima mas com algumas modificações: sem o fator `treinamento` e com transformação logaritmica na variável `salario`. Com estes ajustes, comuns em exercícios empíricos, chegamos a uma especificação como esta:
+
+`$$\operatorname{log(salario)} = \beta_{0} + \beta_{1}(\operatorname{escolaridade}) + \beta_{2}(\operatorname{experiencia}) + \epsilon$$`
+
+No R, estimamos este modelo com a função `lm()` especificando os termos por uma fórmula e o objeto com os dados:
+
+
+```r
+# Estimar modelo
+fit_modelo &lt;- lm(log(wage) ~ educ + exper, data = wage1)
+```
+
+
+---
+### Resultados do modelo
+
+Para obter os resultados do modelo estimado use a função `summary()`, que é uma função genérica para obter resultados de diversas famílias de modelos:
+
+
+```r
+# Obter resultados
+summary(fit_modelo)
+```
+
+```
+# 
+# Call:
+# lm(formula = log(wage) ~ educ + exper, data = wage1)
+# 
+# Residuals:
+#      Min       1Q   Median       3Q      Max 
+# -2.05800 -0.30136 -0.04539  0.30601  1.44425 
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept) 0.216854   0.108595   1.997   0.0464 *  
+# educ        0.097936   0.007622  12.848  &lt; 2e-16 ***
+# exper       0.010347   0.001555   6.653 7.24e-11 ***
+# ---
+# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+# 
+# Residual standard error: 0.4614 on 523 degrees of freedom
+# Multiple R-squared:  0.2493,	Adjusted R-squared:  0.2465 
+# F-statistic: 86.86 on 2 and 523 DF,  p-value: &lt; 2.2e-16
+```
+
+
+---
+### Resultados do modelo
+
+.pull-left[
+
+A interpretação dos resultados deste modelo deve ser feita *ceteris paribus* e os parâmetros possuem uma intepretação percentual. Por exemplo, o coeficiente `educ` (`escolaridade`) com valor 0,097 significa que, mantendo `exper` (`experiencia`) constante, um ano adicional de escolaridade aumenta `wage` (`salario`) em 9,7%. É isso que os economistas querem dizer quando se referem ao “retorno a mais por um ano de educação”.
+
+
+```r
+# Obter resultados em formato "tidy"
+broom::glance(fit_modelo)
+```
+
+```
+# # A tibble: 1 x 12
+#   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+#       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+# 1     0.249         0.246 0.461      86.9 2.68e-33     2  -338.  684.  701.
+# # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
+```
+
+]
+
+.pull-right[
+
+Pode ser mais fácil utilizar essa saída de resultados, especialmente para usuários do `{tidyverse}`, se a mesma for transformada em tabela. Para organizar dessa maneira o pacote `{broom}` possui excelentes funções:
+
+
+```r
+broom::tidy(fit_modelo)
+```
+
+```
+# # A tibble: 3 x 5
+#   term        estimate std.error statistic  p.value
+#   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+# 1 (Intercept)   0.217    0.109        2.00 4.64e- 2
+# 2 educ          0.0979   0.00762     12.8  4.96e-33
+# 3 exper         0.0103   0.00156      6.65 7.24e-11
+```
+
+]
+
+
+---
+### Diagnóstico do modelo
+
+.pull-left[
+
+Além disso, no R existem diversos pacotes focados em análise estatística. Por exemplo, com o pacote `{performance}` podemos facilmente investigar visualmente as hipóteses do modelo com um simples comando:
+
+
+```r
+# Diagnosticar hipóteses do modelo
+performance::check_model(fit_modelo)
+```
+
+]
+
+.pull-right[
+
+&lt;img src="imgs/diag_model.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+### Reportando resultados
+
+Para reportar estes resultados, seja em um artigo, em uma apresentação, etc., também existem diversas facilidades no R. Por exemplo, você pode construir a representação da equação, já em `\(\LaTeX\)`, com base no objeto que contém o modelo estimado:
+
+
+```r
+# Cria a representação da equação (em LaTeX)
+equatiomatic::extract_eq(
+  model = fit_modelo,
+  swap_var_names = c(
+    "log(wage)" = "log(Salario)",
+    "educ"      = "Educacao",
+    "exper"     = "Experiencia")
+  )
+```
+
+$$
+\operatorname{log(Salario)} = \alpha + \beta_{1}(\operatorname{Educacao}) + \beta_{2}(\operatorname{Experiencia}) + \epsilon
+$$
+
+E essa expressão do `\(\LaTeX\)` pode ser renderizada, com o `R Markdown` por exemplo, para:
+
+`$$\operatorname{log(Salario)} = \alpha + \beta_{1}(\operatorname{Educacao}) + \beta_{2}(\operatorname{Experiencia}) + \epsilon$$`
+
+
+---
+### Reportando resultados
+
+Já com o pacote `{report}` é possível criar um texto (em inglês) com alguns parágrafos que já interpretam os resultados do modelo de forma automatizada:
+
+
+```r
+# Cria um texto com interpretação automatizada dos resultados
+report::report(fit_modelo)
+```
+
+```
+# We fitted a linear model (estimated using OLS) to predict wage with educ and exper (formula: log(wage) ~ educ + exper). The model explains a statistically significant and moderate proportion of variance (R2 = 0.25, F(2, 523) = 86.86, p &lt; .001, adj. R2 = 0.25). The model's intercept, corresponding to educ = 0 and exper = 0, is at 0.22 (95% CI [3.52e-03, 0.43], t(523) = 2.00, p = 0.046). Within this model:
+# 
+#   - The effect of educ is statistically significant and positive (beta = 0.10, 95% CI [0.08, 0.11], t(523) = 12.85, p &lt; .001; Std. beta = 0.17, 95% CI [0.15, 0.20])
+#   - The effect of exper is statistically significant and positive (beta = 0.01, 95% CI [7.29e-03, 0.01], t(523) = 6.65, p &lt; .001; Std. beta = 0.09, 95% CI [0.06, 0.12])
+# 
+# Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and p-values were computed using the Wald approximation.
+```
+
+
+---
+### Reportando resultados
+
+Para criar um tabela de resultados, usualmente presente em *papers*, use a variante `*_table()`:
+
+
+```r
+# Cria uma tabela dos resultados
+report::report_table(fit_modelo)
+```
+
+```
+# Parameter   | Coefficient |       95% CI | t(523) |      p | Std. Coef. | Std. Coef. 95% CI |    Fit
+# ----------------------------------------------------------------------------------------------------
+# (Intercept) |        0.22 | [0.00, 0.43] |   2.00 | 0.046  |       0.83 |      [0.81, 0.86] |       
+# educ        |        0.10 | [0.08, 0.11] |  12.85 | &lt; .001 |       0.17 |      [0.15, 0.20] |       
+# exper       |        0.01 | [0.01, 0.01] |   6.65 | &lt; .001 |       0.09 |      [0.06, 0.12] |       
+#             |             |              |        |        |            |                   |       
+# AIC         |             |              |        |        |            |                   | 684.02
+# BIC         |             |              |        |        |            |                   | 701.08
+# R2          |             |              |        |        |            |                   |   0.25
+# R2 (adj.)   |             |              |        |        |            |                   |   0.25
+# Sigma       |             |              |        |        |            |                   |   0.46
+```
+
+
+---
+### Reportando resultados
+
+Por fim, gráficos de parâmetros do modelo também podem ser gerados facilmente:
+
+.pull-left[
+
+
+```r
+# Gráfico dos coeficientes
+fit_modelo %&gt;%
+  parameters::parameters() %&gt;%
+  plot() +
+  ggplot2::labs(title = "Coeficientes do modelo")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="modelr_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+### Saiba mais
+
+Para saber mais e se aprofundar no assunto, [confira os cursos aplicados de R e Python da Análise Macro](https://analisemacro.com.br/treinamento/cursos-aplicados-de-r-e-python-turmas-de-outono/) disponíveis neste outono. Além disso, existem alguns materiais gratuitos sobre modelos disponíveis no blog:
+
+- [Testando se o seu modelo é um bom modelo: o pacote `{performance}`](https://analisemacro.com.br/data-science/testando-se-o-seu-modelo-e-um-bom-modelo-o-pacote-performance/)
+- [Gerando previsões desagregadas de séries temporais](https://analisemacro.com.br/data-science/gerando-previsoes-desagregadas-de-series-temporais/)
+- [Como estimar modelos para múltiplas séries temporais ao mesmo tempo](https://analisemacro.com.br/data-science/como-estimar-modelos-para-multiplas-series-temporais-ao-mesmo-tempo/)
+- [Topic Modeling: sobre o que o COPOM está discutindo? Uma aplicação do modelo LDA](https://analisemacro.com.br/data-science/topic-modeling-sobre-o-que-o-copom-esta-discutindo-uma-aplicacao-do-modelo-lda/)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

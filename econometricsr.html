@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Criando modelos no R</title>
+    <title>Introdução à Econometria</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fernando da Silva Data Scientist       " />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -27,9 +27,9 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Criando modelos no R
+# Introdução à Econometria
 ### Fernando da Silva<br><span style="font-size: 70%;">Data Scientist<br><a href="https://github.com/schoulten"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></a>  <a href="https://www.linkedin.com/in/schoulten/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>  <a href="mailto:fernando@fortietwo.com"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg></a>  <a href="https://analisemacro.com.br/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="rfa" style="height:0.75em;fill:#282f6b;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg></a></span>
-### <span style="font-size: 70%;">25 de março de 2022</span>
+### <span style="font-size: 70%;">08 de abril de 2022</span>
 
 ---
 
@@ -53,9 +53,11 @@ pre {
 
 Neste post mostraremos **como construir modelos de regressão linear de maneira aplicada**. Se você já se perguntou em como replicar no R aqueles modelos introdutórios, comuns em disciplinas de estatística e econometria, este post é pra você!
 
-Dessa forma, **usaremos a econometria** - que é um conjunto de métodos estatísticos utilizados para estimar relações econômicas, testar teorias e avaliar políticas públicas ou de negócios - **para explorar um problema aplicado ao mercado de trabalho**.
+Dessa forma, **usaremos a econometria** - que é um conjunto de métodos estatísticos utilizados para estimar relações econômicas, testar teorias e avaliar políticas públicas ou de negócios - **para explorar um problema aplicado ao mercado de trabalho**. Nada melhor do que entender como utilizar algo com um exemplo prático, certo?
 
-Portanto, assumimos que você já possui algum conhecimento teórico sobre modelos de regressão linear, pois daremos ênfase no aspecto prático de como implementar este tipo de modelo usando o R. Caso necessário, sugerimos como referência para revisão teórica o livro-texto do Wooldridge (2020), que é muito utilizado em disciplinas de econometria de cursos de graduação e será nossa base aqui.
+Portanto, assumimos que você já possui algum conhecimento teórico sobre modelos de regressão linear, pois daremos ênfase no aspecto prático de como implementar este tipo de modelo usando o R. Você pode conferir o **curso de [Introdução à Econometria](https://analisemacro.com.br/cursos/econometria/introducao-a-econometria/) (em R e Python)** para explorar mais a fundo os pormenores dos modelos, assim como tópicos mais avançados que fogem do escopo deste post. É uma ótima oportunidade se você acha o assunto "assustador", pois o curso traz exemplos intuitivos e práticos do dia a dia.
+
+Ademais, nossa referência base sobre o assunto é o livro-texto do Wooldridge (2020), que é muito utilizado em disciplinas de econometria de cursos de graduação.
 
 
 ---
@@ -81,22 +83,24 @@ library(magrittr)    # CRAN v2.0.2
 ---
 ### O problema e os dados
 
-Para exemplificar a estimação de um modelo linear vamos recorrer a um conjunto de dados clássico do Wooldridge, que traz informações de uma pesquisa populacional. Mais especificamente, iremos investigar um problema de economia do mercado de trabalho: suponha que você seja contratado para determinar o efeito de um programa de aperfeiçoamento profissional na produtividade de trabalhadores. Sem se aprofundar muito na teoria econômica e especializada da área, podemos dizer que fatores como escolaridade, experiência profissional e treinamentos podem afetar a produtividade do trabalhador e, portanto, seus salários. Com esse simples entendimento podemos definir um modelo econômico como:
+Para começar a entender o assunto, e exemplificar a estimação de um modelo linear, vamos recorrer a um conjunto de dados clássico do Wooldridge, que traz informações de uma pesquisa populacional. Mais especificamente, iremos investigar um problema de economia do mercado de trabalho: suponha que você seja contratado para determinar o efeito de um programa de aperfeiçoamento profissional na produtividade de trabalhadores. Sem se aprofundar muito na teoria econômica e especializada da área, podemos dizer que fatores como escolaridade, experiência profissional e treinamentos podem afetar a produtividade do trabalhador e, portanto, seus salários. Com esse simples entendimento em mente, podemos então definir um modelo econômico como:
 
 `$$salario = f(escolaridade, experiencia, treinamento)$$`
-onde `salario` é o salário por hora, `escolaridade` são os anos de educação formal, `experiencia` são os anos de experiência no mercado de trabalho e `treinamento` é o tempo despendido em aperfeiçoamento profissional. Outros fatores podem afetar `salario`, mas este modelo simples capta a essência do problema em questão.
+onde `salario` é o salário por hora, `escolaridade` são os anos de educação formal, `experiencia` são os anos de experiência no mercado de trabalho e `treinamento` é o tempo despendido em aperfeiçoamento profissional. Outros fatores podem afetar `salario`, mas este modelo simples capta a essência do problema em questão. 
+
+Essa formulação básica que elaboramos carrega a hipótese de que esses fatores especificados estão, de alguma forma, relacionados com o `salario` dos trabalhadores. O que precisamos fazer agora é investigar esse "modelinho" de forma empírica.
 
 
 ---
 ### O problema e os dados
 
-Dado que estes fatores e variáveis podem ser observados - e se não fossem teríamos que levar isso em consideração -, o próximo passo é transformarmos esta especificação de modelo econômico para um modelo econométrico, como:
+Dado que estes fatores e variáveis podem ser observados - e se não fossem teríamos que levar isso em consideração -, o próximo passo é transformarmos esta especificação de modelo econômico para um **modelo econométrico**, como:
 
 `$$\operatorname{salario} = \beta_{0} + \beta_{1}(\operatorname{escolaridade}) + \beta_{2}(\operatorname{experiencia}) + \beta_{3}(\operatorname{treinamento}) + \epsilon$$`
 
-onde as constantes `\(\beta_{0}\)`, `\(\beta_{1}\)`, ..., `\(\beta_{3}\)` são parâmetros do modelo que descrevem as direções (sinal) e as magnitudes (tamanho) da relação entre `salario` e as demais variáveis utilizadas para explicar `salario` no modelo; e o termo de erro `\(\epsilon\)` contém fatores como "habilidade inata", qualidade da educação, histórico familiar e outros que podem influenciar o salário de um trabalhador. Se estivermos especialmente interessados no efeito do programa de aperfeiçoamento profissional, então `\(\beta_{3}\)` é o parâmetro de interesse.
+onde as constantes `\(\beta_{0}\)`, `\(\beta_{1}\)`, ..., `\(\beta_{3}\)` são parâmetros do modelo que descrevem as direções (sinal) e as magnitudes (tamanho) da relação entre `salario` e as demais variáveis utilizadas para explicar `salario` no modelo; e o termo de erro `\(\epsilon\)` contém fatores como "habilidade inata", qualidade da educação, histórico familiar e outros que podem influenciar o salário de um trabalhador, ou seja, o erro é comumente chamado de "medida do nosso desconhecimento". Se estivermos especialmente interessados no efeito do programa de aperfeiçoamento profissional, então `\(\beta_{3}\)` é o parâmetro de interesse.
 
-Para uma análise empirica deste modelo precisamos de dados, portanto, após essa breve introdução vamos partir para a prática! No R, o conjunto de dados para usarmos nesse modelo vem do pacote `{wooldridge}` e pode ser carregado conforme abaixo:
+Para uma análise empírica deste modelo precisamos de dados, portanto, após essa breve introdução vamos partir para a prática! No R, o conjunto de dados para usarmos nesse modelo vem do pacote `{wooldridge}` e pode ser carregado conforme abaixo:
 
 
 ```r
@@ -108,7 +112,7 @@ data("wage1")
 ---
 ### Exploração dos dados
 
-Os dados são do tipo *cross-section* e contém variáveis de 526 indivíduos referente ao ano de 1976. Deste conjunto de dados, usaremos apenas as variáveis `wage` (salário por hora), `educ` (anos de educação) e `exper` (anos de experiência). Para facilitar o entendimento, utilizaremos a transformação logarítmica na variável dependente, obtendo uma interpretação percentual dos parâmetros do modelo.
+Os dados são do tipo *cross-section* e contém variáveis de 526 indivíduos referente ao ano de 1976. Deste conjunto de dados, usaremos apenas as variáveis `wage` (salário por hora), `educ` (anos de educação) e `exper` (anos de experiência). Para facilitar o entendimento, utilizaremos a transformação logarítmica na variável dependente (`wage`), de forma a obter uma interpretação percentual dos parâmetros do modelo.
 
 
 ```r
@@ -207,7 +211,7 @@ p1 + p2
 
 .pull-right[
 
-&lt;img src="modelr_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="econometricsr_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -219,7 +223,9 @@ Conforme dito, iremos estimar o modelo econométrico acima mas com algumas modif
 
 `$$\operatorname{log(salario)} = \beta_{0} + \beta_{1}(\operatorname{escolaridade}) + \beta_{2}(\operatorname{experiencia}) + \epsilon$$`
 
-No R, estimamos este modelo com a função `lm()` especificando os termos por uma fórmula e o objeto com os dados:
+Ou seja, queremos saber a relação entre a escolaridade e experiência profissional dos trabalhares sobre os seus salários (em log). Dessa forma, devemos agora estimar os coeficientes que medem esses efeitos. 
+
+No R, estimamos este modelo de regressão com a função `lm()` especificando os termos por uma fórmula e o objeto com os dados:
 
 
 ```r
@@ -267,7 +273,7 @@ summary(fit_modelo)
 
 .pull-left[
 
-A interpretação dos resultados deste modelo deve ser feita *ceteris paribus* e os parâmetros possuem uma intepretação percentual. Por exemplo, o coeficiente `educ` (`escolaridade`) com valor 0,097 significa que, mantendo `exper` (`experiencia`) constante, um ano adicional de escolaridade aumenta `wage` (`salario`) em 9,7%. É isso que os economistas querem dizer quando se referem ao “retorno a mais por um ano de educação”.
+A interpretação dos resultados deste modelo deve ser feita *ceteris paribus* e os parâmetros, neste caso, possuem uma intepretação percentual. Por exemplo, o coeficiente `educ` (`escolaridade`) com valor 0,097 significa que, mantendo `exper` (`experiencia`) constante, um ano adicional de escolaridade aumenta `wage` (`salario`) em 9,7%. É isso que os economistas querem dizer quando se referem ao “retorno a mais por um ano de educação”.
 
 
 ```r
@@ -421,7 +427,7 @@ fit_modelo %&gt;%
 
 .pull-right[
 
-&lt;img src="modelr_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="econometricsr_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -429,7 +435,7 @@ fit_modelo %&gt;%
 ---
 ### Saiba mais
 
-Para saber mais e se aprofundar no assunto, [confira os cursos aplicados de R e Python da Análise Macro](https://analisemacro.com.br/treinamento/cursos-aplicados-de-r-e-python-turmas-de-outono/) disponíveis neste outono. Além disso, existem alguns materiais gratuitos sobre modelos disponíveis no blog:
+Para saber mais e se aprofundar no assunto, confira o curso de [Introdução à Econometria](https://analisemacro.com.br/cursos/econometria/introducao-a-econometria/) (em R e Python). Além disso, existem alguns materiais gratuitos sobre modelos disponíveis no blog:
 
 - [Testando se o seu modelo é um bom modelo: o pacote `{performance}`](https://analisemacro.com.br/data-science/testando-se-o-seu-modelo-e-um-bom-modelo-o-pacote-performance/)
 - [Gerando previsões desagregadas de séries temporais](https://analisemacro.com.br/data-science/gerando-previsoes-desagregadas-de-series-temporais/)

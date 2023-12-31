@@ -1,5 +1,5 @@
-[![Made with R Programming](https://img.shields.io/badge/R->=4.3.1-blue?logo=python&logoColor=white)](https://cran.r-project.org/ "Go to R Programming homepage")
-[![dependency - django==4.0.5](https://img.shields.io/badge/dependency-django==4.0.5-blue)](https://www.djangoproject.com/ "Go to Django homepage")
+[![Made with R Programming](https://img.shields.io/badge/R_Programming-Bar-2ea44f?logo=https%3A%2F%2Fcran.r-project.org%2FRlogo.svg)](https://cran.r-project.org/ "Go to R Programming homepage")
+
 
 
 ### Hello Finance Pythonistas! 👋

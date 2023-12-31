@@ -6,9 +6,9 @@
 
 First of all, if you have not known me yet, please check it out my profile describe [here](https://github.com/andresalerno "My profile").
 
-Seriously, I'm falling with love with the comprehensive approach that has been teached by [ANALISE MACRO](https://analisemacro.com.br/).
+Seriously, I'm falling with love with the comprehensive approach that has been teaching by [ANALISE MACRO](https://analisemacro.com.br/).
 
-If you're studying some basics, even some concepts deeper, I strongly recommend this guy, that I've bought in their website listed above.
+If you're studying some basics, even some concepts deeper, I strongly recommend these guys, that I've bought some courses in their website listed above.
 
 I hope you enjoy a lot!
 

@@ -40,7 +40,7 @@ colors <- c(
 # Tema da apresentação
 xaringanthemer::style_mono_light(
   base_color                      = unname(colors["blue"]),
-  title_slide_background_image    = params$logo_slides,
+#  title_slide_background_image    = params$logo_slides,
   title_slide_background_size     = 12,
   title_slide_background_position = "bottom 10px right 20px",
   title_slide_background_color    = "white",

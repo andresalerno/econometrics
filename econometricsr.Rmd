@@ -1,7 +1,7 @@
 ---
 title: "Introdução à Econometria"
 #subtitle: ""
-author: 'Fernando da Silva<br><span style = "font-size: 70%;">Data Scientist<br><a href="https://github.com/schoulten">`r fontawesome::fa("github", fill = "#282f6b")`</a>&nbsp; <a href="https://www.linkedin.com/in/schoulten/">`r fontawesome::fa("linkedin", fill = "#282f6b")`</a>&nbsp; <a href="mailto:fernando@fortietwo.com">`r fontawesome::fa("envelope", fill = "#282f6b")`</a>&nbsp; <a href="https://analisemacro.com.br/">`r fontawesome::fa("home", fill = "#282f6b")`</a></span>'
+author: 'André Salerno<br><span style = "font-size: 70%;">Data FinTech Solutions owner<br><a href="https://github.com/andresalerno">`r fontawesome::fa("github", fill = "#282f6b")`</a>&nbsp; <a href="https://www.linkedin.com/in/andresalerno/">`r fontawesome::fa("linkedin", fill = "#282f6b")`</a>&nbsp; <a href="mailto:salerno@datafintechsolutions.com">`r fontawesome::fa("envelope", fill = "#282f6b")`</a>&nbsp; <a href="https://www.datafintechsolutions.com/">`r fontawesome::fa("home", fill = "#282f6b")`</a></span>'
 date: "<span style = 'font-size: 70%;'>`r format(Sys.Date(), '%d de %B de %Y')`</span>"
 output:
   xaringan::moon_reader:
@@ -14,8 +14,8 @@ output:
       ratio: "16:9"
       navigation: 
         scroll: false
-params:
-  logo_slides: "https://analisemacro.com.br/wp-content/uploads/dlm_uploads/2021/10/logo_am.png"
+# params:
+#  logo_slides: "https://www.datafintechsolutions.com/img/logo.png"
 ---
 
 ```{r, file = "./rmd/setup.R", include=FALSE}
@@ -61,6 +61,7 @@ library(tibble)      # CRAN v3.1.6
 library(ggplot2)     # CRAN v3.3.5
 library(patchwork)   # CRAN v1.1.1
 library(magrittr)    # CRAN v2.0.2
+
 ```
 
 
@@ -122,6 +123,8 @@ Com o pacote `ggplot2` podemos facilmente visualizar, em um gráfico de dispers�
 .pull-left[
 
 ```{r g1, fig.show='hide'}
+library(magrittr)
+
 # Visualização dos dados
 p1 <- wage1 %>%
   ggplot2::ggplot() +

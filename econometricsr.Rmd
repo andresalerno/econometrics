@@ -14,8 +14,8 @@ output:
       ratio: "16:9"
       navigation: 
         scroll: false
-# params:
-#  logo_slides: "https://www.datafintechsolutions.com/img/logo.png"
+params:
+  logo_slides: "https://www.datafintechsolutions.com/img/logo.png"
 ---
 
 ```{r, file = "./rmd/setup.R", include=FALSE}

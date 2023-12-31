@@ -2,13 +2,13 @@
 
 
 
-### Hello Finance Pythonistas! 👋
+### Hello Finance R Programmers! 👋
 
 First of all, if you have not known me yet, please check it out my profile describe [here](https://github.com/andresalerno "My profile").
 
-Seriously, I'm falling with love with this amazing place called [VERY ACADEMY](https://github.com/veryacademy).
+Seriously, I'm falling with love with the comprehensive approach that has been teached by [ANALISE MACRO](https://analisemacro.com.br/).
 
-If you're studying some basics, even some concepts deeper, I strongly recommend this guy, that I've bought some courses at UDEMY.
+If you're studying some basics, even some concepts deeper, I strongly recommend this guy, that I've bought in their website listed above.
 
 I hope you enjoy a lot!
 

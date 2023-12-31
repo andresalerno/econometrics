@@ -1,4 +1,4 @@
-[![Made with Python](https://img.shields.io/badge/Python->=3.11.3-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
+[![Made with R Programming](https://img.shields.io/badge/R->=4.3.1-blue?logo=python&logoColor=white)](https://cran.r-project.org/ "Go to R Programming homepage")
 [![dependency - django==4.0.5](https://img.shields.io/badge/dependency-django==4.0.5-blue)](https://www.djangoproject.com/ "Go to Django homepage")
 
 
